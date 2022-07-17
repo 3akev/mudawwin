@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mudawwin/routes/PoemsViewRoute.dart';
+import 'package:mudawwin/database/database.dart';
+import 'package:mudawwin/routes/PoemEditRoute/PoemEditRoute.dart';
+import 'package:mudawwin/routes/PoemsViewRoute/PoemsViewRoute.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const Mudawwin());
@@ -10,11 +13,26 @@ class Mudawwin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Mudawwin',
-      theme: ThemeData.dark(),
-      home: const PoemsViewRoute(),
+    return Provider<PoetryDatabase>(
+      create: (context) => PoetryDatabase(),
+      dispose: (context, db) => db.close(),
+      child: MaterialApp(
+          title: 'Mudawwin',
+          theme: ThemeData.dark(),
+          home: const PoemsViewRoute(),
+          onGenerateRoute: (settings) {
+            if (settings.name == PoemEditRoute.routeName) {
+              final args = settings.arguments as Map;
+              return MaterialPageRoute(
+                builder: (context) {
+                  final poem = Provider.of<PoetryDatabase>(context)
+                      .getPoem(args['poem_id']);
+                  return PoemEditRoute(poem: poem);
+                },
+              );
+            }
+            return null;
+          }),
     );
   }
 }
-
