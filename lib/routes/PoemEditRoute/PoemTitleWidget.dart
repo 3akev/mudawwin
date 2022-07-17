@@ -2,31 +2,30 @@ import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:mudawwin/database/database.dart';
 import 'package:mudawwin/routes/misc.dart';
-
 import 'package:provider/provider.dart';
 
-class PoemContentWidget extends StatefulWidget {
-  const PoemContentWidget({Key? key, required this.poem}) : super(key: key);
+class PoemTitleWidget extends StatefulWidget {
+  const PoemTitleWidget({
+    Key? key,
+    required this.poem,
+  }) : super(key: key);
 
   final Poem poem;
 
   @override
-  State<PoemContentWidget> createState() => _PoemContentWidgetState();
+  State<PoemTitleWidget> createState() => _PoemTitleWidgetState();
 }
 
-class _PoemContentWidgetState extends State<PoemContentWidget> {
+class _PoemTitleWidgetState extends State<PoemTitleWidget> {
   final textController = TextEditingController();
 
   late final PoetryDatabase db;
 
   @override
   Widget build(BuildContext context) {
-    textController.value = getTextValue(widget.poem.content);
-
+    textController.value = getTextValue(widget.poem.title);
     return TextField(
-      maxLines: null,
       controller: textController,
-      textDirection: TextDirection.rtl,
     );
   }
 
@@ -50,9 +49,7 @@ class _PoemContentWidgetState extends State<PoemContentWidget> {
 
   void updatePoem() {
     final companion = PoemsCompanion(
-      id: Value(widget.poem.id),
-      content: Value(textController.text)
-    );
+        id: Value(widget.poem.id), title: Value(textController.text));
     db.updatePoem(companion);
   }
 }
