@@ -31,8 +31,8 @@ class PoetryDatabase extends _$PoetryDatabase {
   Future<Poem> createPoem() => into(poems).insertReturning(
       const PoemsCompanion(title: Value(''), content: Value('')));
 
-  Future updatePoem(Poem poem) =>
-      (update(poems)..where((tbl) => tbl.id.equals(poem.id))).write(poem);
+  Future updatePoem(PoemsCompanion poem) =>
+      (update(poems)..where((tbl) => tbl.id.equals(poem.id.value))).write(poem);
 
   Future removePoem(Poem poem) =>
       (delete(poems)..where((poem2) => poem2.id.equals(poem.id))).go();

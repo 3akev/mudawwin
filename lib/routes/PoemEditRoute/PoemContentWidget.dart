@@ -1,11 +1,11 @@
+import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:mudawwin/database/database.dart';
 
 import 'package:provider/provider.dart';
 
 class PoemContentWidget extends StatefulWidget {
-  PoemContentWidget({Key? key, required this.poem})
-      : super(key: key);
+  const PoemContentWidget({Key? key, required this.poem}) : super(key: key);
 
   final Poem poem;
 
@@ -20,7 +20,10 @@ class _PoemContentWidgetState extends State<PoemContentWidget> {
 
   @override
   Widget build(BuildContext context) {
+    textController.value = getTextValue(widget.poem.content);
+
     return TextField(
+      maxLines: null,
       controller: textController,
       textDirection: TextDirection.rtl,
     );
@@ -29,7 +32,7 @@ class _PoemContentWidgetState extends State<PoemContentWidget> {
   @override
   void initState() {
     super.initState();
-    textController.addListener(() => db.updatePoem(widget.poem));
+    textController.addListener(() => updatePoem());
   }
 
   @override
@@ -38,4 +41,26 @@ class _PoemContentWidgetState extends State<PoemContentWidget> {
     db = Provider.of<PoetryDatabase>(context, listen: false);
   }
 
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+
+  void updatePoem() {
+    final companion = PoemsCompanion(
+      id: Value(widget.poem.id),
+      content: Value(textController.text)
+    );
+    db.updatePoem(companion);
+  }
+}
+
+TextEditingValue getTextValue(String text) {
+  return TextEditingValue(
+    text: text,
+    selection: TextSelection.fromPosition(
+      TextPosition(offset: text.length),
+    ),
+  );
 }
