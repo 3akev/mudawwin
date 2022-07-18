@@ -22,11 +22,14 @@ class _PoemContentWidgetState extends State<PoemContentWidget> {
   @override
   Widget build(BuildContext context) {
     textController.value = getTextValue(widget.poem.content);
-    return TextField(
-      decoration: null,
-      maxLines: null,
-      controller: textController
-    );
+    return Flex(direction: Axis.vertical, children: [
+      Expanded(
+          child: TextField(
+              decoration: null,
+              maxLines: null,
+              expands: true,
+              controller: textController))
+    ]);
   }
 
   @override
@@ -49,9 +52,7 @@ class _PoemContentWidgetState extends State<PoemContentWidget> {
 
   void updatePoem() {
     final companion = PoemsCompanion(
-      id: Value(widget.poem.id),
-      content: Value(textController.text)
-    );
+        id: Value(widget.poem.id), content: Value(textController.text));
     db.updatePoem(companion);
   }
 }
