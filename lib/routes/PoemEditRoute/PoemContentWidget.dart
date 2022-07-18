@@ -22,11 +22,10 @@ class _PoemContentWidgetState extends State<PoemContentWidget> {
   @override
   Widget build(BuildContext context) {
     textController.value = getTextValue(widget.poem.content);
-
     return TextField(
+      decoration: null,
       maxLines: null,
-      controller: textController,
-      textDirection: TextDirection.rtl,
+      controller: textController
     );
   }
 

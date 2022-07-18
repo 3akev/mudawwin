@@ -25,6 +25,7 @@ class _PoemTitleWidgetState extends State<PoemTitleWidget> {
   Widget build(BuildContext context) {
     textController.value = getTextValue(widget.poem.title);
     return TextField(
+      decoration: null,
       controller: textController,
     );
   }
