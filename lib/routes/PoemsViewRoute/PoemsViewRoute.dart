@@ -27,9 +27,9 @@ class _PoemsViewRouteState extends State<PoemsViewRoute> {
   @override
   Widget build(BuildContext context) {
     final db = Provider.of<PoetryDatabase>(context);
-    final Future<List<Map<String, dynamic>>> poems = db.allPoems();
+    final Future<List<Poem>> poems = db.allPoems();
 
-    return FutureBuilder<List<Map<String, dynamic>>>(
+    return FutureBuilder<List<Poem>>(
         future: poems,
         builder: (ctx, snapshot) {
           final data = snapshot.data ?? [];

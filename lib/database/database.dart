@@ -11,7 +11,9 @@ import 'package:path/path.dart' as p;
 
 part 'database.g.dart';
 
-@DriftDatabase(tables: [Poems])
+const numCharsHeader = Variable<int>(100);
+
+@DriftDatabase(tables: [Poems], queries: {'contentLimit': ''})
 class PoetryDatabase extends _$PoetryDatabase {
   // we tell the database where to store the data with this constructor
   PoetryDatabase() : super(_openConnection());
@@ -19,10 +21,12 @@ class PoetryDatabase extends _$PoetryDatabase {
   @override
   int get schemaVersion => 1;
 
-  Future<List<Map<String, dynamic>>> allPoems() async {
-    final result =
-        await (selectOnly(poems)..addColumns([poems.id, poems.title])).get();
-    return result.map((e) => e.rawData.data).toList();
+  Future<List<Poem>> allPoems() async {
+    return customSelect(
+        "SELECT id, title, SUBSTR(content, 1, ?) AS 'content' FROM poems",
+        variables: [numCharsHeader]
+    ).map((e) => Poem.fromData(e.data))
+        .get();
   }
 
   Future<Poem> getPoem(int id) =>

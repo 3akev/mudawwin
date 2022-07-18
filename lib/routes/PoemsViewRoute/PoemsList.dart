@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mudawwin/database/database.dart';
 import 'package:mudawwin/routes/PoemsViewRoute/PoemWidget.dart';
 
 class PoemsList extends StatelessWidget {
@@ -8,7 +9,7 @@ class PoemsList extends StatelessWidget {
     required this.onPoemPressed,
   }) : super(key: key);
 
-  final List<Map<String, dynamic>> poems;
+  final List<Poem> poems;
   final void Function(int id) onPoemPressed;
 
   @override
@@ -18,7 +19,7 @@ class PoemsList extends StatelessWidget {
       itemCount: poems.length,
       itemBuilder: (BuildContext context, int index) => PoemWidget(
         poem: poems[index],
-        callback: () => onPoemPressed(poems[index]['poems.id']),
+        callback: () => onPoemPressed(poems[index].id),
       ),
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
