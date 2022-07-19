@@ -47,7 +47,7 @@ class _PoemsViewRouteState extends State<PoemsViewRoute> {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: newPoem,
-              tooltip: 'New Poem',
+              tooltip: 'إضافة قصيدة',
               child: const Icon(Icons.add),
             ),
           );

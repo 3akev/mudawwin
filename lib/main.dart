@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mudawwin/database/database.dart';
 import 'package:mudawwin/routes/PoemEditRoute/PoemEditRoute.dart';
 import 'package:mudawwin/routes/PoemsViewRoute/PoemsViewRoute.dart';
@@ -18,6 +19,12 @@ class Mudawwin extends StatelessWidget {
       dispose: (context, db) => db.close(),
       child: MaterialApp(
           title: 'Mudawwin',
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [Locale('ar', '')],
           theme: ThemeData(
             brightness: Brightness.dark,
             fontFamily: 'Amiri',

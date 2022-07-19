@@ -44,7 +44,7 @@ class _PoemEditRouteState extends State<PoemEditRoute> {
       PopupMenuButton<MenuAction>(
         itemBuilder: (context) => [
           const PopupMenuItem<MenuAction>(
-              value: MenuAction.delete, child: Text("Delete"))
+              value: MenuAction.delete, child: Text("حذف"))
         ],
         onSelected: (item) => deletePoem(context, poem),
       )

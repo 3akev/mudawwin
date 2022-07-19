@@ -27,7 +27,6 @@ class _PoemTitleWidgetState extends State<PoemTitleWidget> {
     return TextField(
       decoration: const InputDecoration(
         hintText: "اكتب العنوان",
-        hintTextDirection: TextDirection.rtl,
         border: InputBorder.none,
       ),
       controller: textController,
