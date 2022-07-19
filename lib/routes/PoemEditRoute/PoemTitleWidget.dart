@@ -25,7 +25,11 @@ class _PoemTitleWidgetState extends State<PoemTitleWidget> {
   Widget build(BuildContext context) {
     textController.value = getTextValue(widget.poem.title);
     return TextField(
-      decoration: null,
+      decoration: const InputDecoration(
+        hintText: "اكتب العنوان",
+        hintTextDirection: TextDirection.rtl,
+        border: InputBorder.none,
+      ),
       controller: textController,
     );
   }

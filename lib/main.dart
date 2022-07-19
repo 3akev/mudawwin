@@ -18,7 +18,10 @@ class Mudawwin extends StatelessWidget {
       dispose: (context, db) => db.close(),
       child: MaterialApp(
           title: 'Mudawwin',
-          theme: ThemeData.dark(),
+          theme: ThemeData(
+            brightness: Brightness.dark,
+            fontFamily: 'Amiri',
+          ),
           home: const PoemsViewRoute(),
           onGenerateRoute: (settings) {
             if (settings.name == PoemEditRoute.routeName) {
