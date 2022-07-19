@@ -18,8 +18,7 @@ class PoemTitleWidget extends StatefulWidget {
 
 class _PoemTitleWidgetState extends State<PoemTitleWidget> {
   final textController = TextEditingController();
-
-  late final PoetryDatabase db;
+  late PoetryDatabase db;
 
   @override
   Widget build(BuildContext context) {

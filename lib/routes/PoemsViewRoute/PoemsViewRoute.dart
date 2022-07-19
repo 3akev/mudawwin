@@ -12,9 +12,20 @@ class PoemsViewRoute extends StatefulWidget {
 }
 
 class _PoemsViewRouteState extends State<PoemsViewRoute> {
+  late PoetryDatabase db;
+  late Future<List<Poem>> poems;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    db = Provider.of<PoetryDatabase>(context);
+    poems = db.allPoems();
+  }
+
   void openPoem(BuildContext context, int id) {
     Navigator.pushNamed(context, PoemEditRoute.routeName,
-        arguments: {'poem_id': id}).then((value) => setState(() {}));
+            arguments: {'poem_id': id})
+        .whenComplete(() => setState(() => {poems = db.allPoems()}));
   }
 
   void newPoem() {
@@ -25,32 +36,27 @@ class _PoemsViewRouteState extends State<PoemsViewRoute> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final db = Provider.of<PoetryDatabase>(context);
-    final Future<List<Poem>> poems = db.allPoems();
+  Widget build(BuildContext context) => FutureBuilder<List<Poem>>(
+      future: poems,
+      builder: (ctx, snapshot) {
+        final data = snapshot.data ?? [];
 
-    return FutureBuilder<List<Poem>>(
-        future: poems,
-        builder: (ctx, snapshot) {
-          final data = snapshot.data ?? [];
-
-          return Scaffold(
-            appBar: AppBar(
-              title: const Align(
-                alignment: Alignment.centerRight,
-                child: Text('الديوان'),
-              ),
+        return Scaffold(
+          appBar: AppBar(
+            title: const Align(
+              alignment: Alignment.centerRight,
+              child: Text('الديوان'),
             ),
-            body: PoemsList(
-              poems: data,
-              onPoemPressed: (id) => openPoem(context, id),
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: newPoem,
-              tooltip: 'إضافة قصيدة',
-              child: const Icon(Icons.add),
-            ),
-          );
-        });
-  }
+          ),
+          body: PoemsList(
+            poems: data,
+            onPoemPressed: (id) => openPoem(context, id),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: newPoem,
+            tooltip: 'إضافة قصيدة',
+            child: const Icon(Icons.add),
+          ),
+        );
+      });
 }
