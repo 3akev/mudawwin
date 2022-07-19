@@ -13,8 +13,24 @@ class PoemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String title;
+    if (poem.title == '') {
+      if (poem.content == '') {
+        title = 'قصيدة جديدة';
+      } else {
+        title = poem.content.split('\n')[0].trim();
+      }
+    } else {
+      title = poem.title;
+    }
     return SizedBox(
-      child: TextButton(onPressed: callback, child: Text(poem.title)),
+      child: TextButton(
+          onPressed: callback,
+          child: Text(
+            title,
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
+          )),
     );
   }
 }
