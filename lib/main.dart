@@ -19,11 +19,7 @@ class Mudawwin extends StatelessWidget {
       dispose: (context, db) => db.close(),
       child: MaterialApp(
           title: 'Mudawwin',
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
+          localizationsDelegates: GlobalMaterialLocalizations.delegates,
           supportedLocales: const [Locale('ar', '')],
           theme: ThemeData(
             brightness: Brightness.dark,

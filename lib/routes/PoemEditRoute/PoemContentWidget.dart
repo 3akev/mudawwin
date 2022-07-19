@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:mudawwin/database/database.dart';
+import 'package:mudawwin/routes/PoemEditRoute/ArabicTextFormatter.dart';
 import 'package:mudawwin/routes/misc.dart';
 
 import 'package:provider/provider.dart';
@@ -24,6 +25,8 @@ class _PoemContentWidgetState extends State<PoemContentWidget> {
     return Flex(direction: Axis.vertical, children: [
       Expanded(
           child: TextField(
+              inputFormatters: [ArabicTextFormatter()],
+              style: const TextStyle(fontSize: 20.0),
               decoration: null,
               maxLines: null,
               expands: true,
