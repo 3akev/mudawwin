@@ -14,23 +14,39 @@ class PoemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String title;
+    String content = '';
     if (poem.title == '') {
       if (poem.content == '') {
         title = 'قصيدة جديدة';
       } else {
-        title = poem.content.split('\n')[0].trim();
+        final tmp = poem.content.split('\n');
+        title = tmp[0].trim();
+        content = tmp.getRange(1, tmp.length).join('\n') + '...';
       }
     } else {
       title = poem.title;
+      content = poem.content + '...';
     }
+    final textTheme = Theme.of(context).textTheme;
     return SizedBox(
-      child: TextButton(
-          onPressed: callback,
-          child: Text(
-            title,
-            softWrap: false,
-            overflow: TextOverflow.ellipsis,
-          )),
-    );
+        child: TextButton(
+      style: TextButton.styleFrom(
+        primary: textTheme.bodyText2?.color,
+        backgroundColor: textTheme.bodyText2?.backgroundColor,
+      ),
+      onPressed: callback,
+      child: Column(children: [
+        Text(
+          title,
+          softWrap: false,
+          overflow: TextOverflow.ellipsis,
+          style: textTheme.titleLarge,
+        ),
+        Text(
+          content,
+          softWrap: true,
+        )
+      ]),
+    ));
   }
 }

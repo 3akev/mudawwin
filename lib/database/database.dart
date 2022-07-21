@@ -11,7 +11,7 @@ import 'package:path/path.dart' as p;
 
 part 'database.g.dart';
 
-const numCharsHeader = Variable<int>(100);
+const numCharsHeader = Variable<int>(50);
 
 @DriftDatabase(tables: [Poems], queries: {'contentLimit': ''})
 class PoetryDatabase extends _$PoetryDatabase {
