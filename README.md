@@ -1,16 +1,19 @@
-# mudawwin
+# Mudawwin | مُدَوِّن
 
-Poetry helper
+This is an Arabic poetry-writing app written in Flutter. Not that there's anything stopping it 
+from being used as a normal notepad app.
 
-## Getting Started
+Of course, as it turns out, flutter still has far too many bugs in their `TextField`s. And
+for an app that hinges completely on them, I find that it defeats the entire purpose.
 
-This project is a starting point for a Flutter application.
+Some examples of the issues I encountered: 
+- https://github.com/flutter/flutter/issues/9471: In particular, this error message: 
+`I/TextInputPlugin( 5007): Composing region changed by the framework. Restarting the input method.` 
+which is associated with the following video courtesy of https://github.com/LiquidatorCoder/better_textfield.
 
-A few resources to get you started if this is your first Flutter project:
+    https://user-images.githubusercontent.com/42910433/147383865-c154c661-8e6e-4ebf-a5c5-c06e4c6dbf44.mp4
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- https://stackoverflow.com/questions/72579246/flutter-textfield-flutter-rtl-cursor-position-problem-n-1:
+I had to work around this with a custom `TextInputFormatter` which adds a trailing space.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Credits: https://www.amirifont.org.
